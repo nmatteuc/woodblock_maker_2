@@ -37,18 +37,19 @@ var pauseButton;
 
 var input;
 var img;
-//var img2;
 var capture;
+var camOn = false;
+var dangerOn = false;
 
 function preload(){
 
 	for (var i=0; i < 80; i++){
-		sizeOne[i] = loadImage("One/1_"+i+".png");
-		sizeTwo[i] = loadImage("Two/2_"+i+".png");
-		sizeFive[i] = loadImage("Five/5_"+i+".png");
-		sizeTen[i] = loadImage("Ten/10_"+i+".png");
-		half[i] = loadImage("Half/H_"+i+".png");
-		quarter[i] = loadImage("Quarter/Q_"+i+".png");
+		sizeOne[i] = loadImage("Images/One/1_"+i+".png");
+		sizeTwo[i] = loadImage("Images/Two/2_"+i+".png");
+		sizeFive[i] = loadImage("Images/Five/5_"+i+".png");
+		sizeTen[i] = loadImage("Images/Ten/10_"+i+".png");
+		half[i] = loadImage("Images/Half/H_"+i+".png");
+		quarter[i] = loadImage("Images/Quarter/Q_"+i+".png");
 	}
 }
 
@@ -68,37 +69,13 @@ function setup() {
 	textSize(14);
 	text("Ink color:",25,100,50,50);
 	text("Opacity:",25,340,50,50);
-	text("Upload image:",625,350,50,50);
-	text("Use webcam:",625,450,50,50);
+	text("Upload image:",25,420,50,50);
+	//text("Use webcam:",625,450,50,50);
 	text("Woodblock size:",630,100,50,50);
 
 	stroke(230);
   grid();
 
-/*
-	img2.loadPixels();
-
-	for (var x = 0; x < img2.width; x+=10){
-		for (var y = 0; y < img2.height; y+=10){
-			var index = (x + y * img2.width)*4;
-			var r = img2.pixels[index];
-			var g = img2.pixels[index+1];
-			var b = img2.pixels[index+2];
-			var a = img2.pixels[index+3];
-			//blendMode(DIFFERENCE);
-			//colorMode(HSB,255);
-			var c = color(r,g,b,a);
-			var value = brightness(c);
-			var value2 = hue(c);
-
-			var pick = int(random(70,80));
-			tint(r,g,b);
-			image(quarter[pick],x+100,y+100);
-
-		}
-	}
-	img2.updatePixels();
-*/
 	//transparency slider
 	slider = createSlider(0,255,255);
 	slider.position(10,360);
@@ -209,14 +186,15 @@ function setup() {
 	tenButton.size(40,20);
 	//fast button
 	speedButton = createButton('SPEED DEMON (click & drag)');
-  speedButton.position(20,470);
+  speedButton.position(620,height-160);
 	speedButton.size(60,60);
 	speedButton.mousePressed(fast);
 	//slow button
 	slowButton = createButton('SLOW POKE (click only)');
-  slowButton.position(20, 400);
+  slowButton.position(620, height-230);
 	slowButton.size(60,60);
 	slowButton.mousePressed(slow);
+	/*
 	//video buttons
 	playButton = createButton('PLAY');
   playButton.position(610,500);
@@ -226,20 +204,28 @@ function setup() {
   pauseButton.position(610,530);
 	pauseButton.mousePressed(pause);
 	pauseButton.size(80,20);
-
+*/
 	input = createFileInput(handleFile);
-	input.position(610,400);
+	input.position(10,460);
 	input.size(80,20);
-
+/*
 	capture = createCapture(VIDEO);
 	capture.size(1000,500);
 	capture.hide();
 	print(capture.width);
 	print(capture.height);
-
+*/
+	var dangerButton = createButton('DO NOT PUSH');
+	dangerButton.position(620,370);
+	dangerButton.size(60,60);
+	dangerButton.style('border-radius:50%');
+	dangerButton.style('background-color:#f44336');
+	dangerButton.mousePressed(chaos);
 }
+/*
+//webcam run
 function run(){
-	if (start == 1){
+
 		noStroke();
 		fill(255);
 		rect(100,100,500,500);
@@ -249,7 +235,7 @@ function run(){
 
 		//loadPixels();
 
-capture.loadPixels();
+		capture.loadPixels();
 		if(sizeButton == 0){
 		for (var x = 250; x < capture.width-250; x+=50){
 			for (var y = 0; y < capture.height; y+=50){
@@ -355,12 +341,50 @@ capture.loadPixels();
 			}
 		}
 	}
-	}
 	//start = 0;
+}
+*/
+function chaos(){
+	dangerOn = true;
+	redButton.hide();
+	blueButton.hide();
+	greenButton.hide();
+	blackButton.hide();
+	cyanButton.hide();
+	magentaButton.hide();
+	yellowButton.hide();
+	whiteButton.hide();
+	resetButton.hide();
+	printButton.hide();
+	halfButton.hide();
+	quarterButton.hide();
+	twoButton.hide();
+	fiveButton.hide();
+	tenButton.hide();
+	oneButton.hide();
+	speedButton.hide();
+	slowButton.hide();
+	slider.hide();
+	input.hide();
+	
+	for (var x = 0; x < width; x+=skip){
+		for (var y = 0; y < height; y+=skip){
+			frameRate(10);
+			var trans = int(random(255));
+			var pick = int(random(80));
+			tint(255,trans);
+			image(sizeOne[pick],x,y);
+		}
+	}
 }
 function draw() {
 	//run webcam
-	run();
+	//if (start == 1){
+		//run();
+	//}
+if (dangerOn){
+		chaos();
+	}
 }
 
 //button functions
@@ -416,7 +440,8 @@ function prints(){
 	textSize(14);
 	text("Ink color:",25,100,50,50);
 	text("Opacity:",25,340,50,50);
-	text("Upload image:",25,400,50,50);
+	text("Upload image:",25,420,50,50);
+	//text("Use webcam:",625,450,50,50);
 	text("Woodblock size:",630,100,50,50);
 
 	stroke(230);
