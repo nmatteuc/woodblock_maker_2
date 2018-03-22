@@ -55,9 +55,13 @@ function preload(){
 
 function setup() {
   createCanvas(700,700);
-	background(255);
+	//background(255);
   smooth();
 	pixelDensity(1);
+	fill(255);
+	noStroke();
+	rect(0,0,700,700);
+
 
 	textFont('Avenir');
 	textAlign(CENTER);
@@ -346,6 +350,7 @@ function run(){
 */
 function chaos(){
 	dangerOn = true;
+
 	redButton.hide();
 	blueButton.hide();
 	greenButton.hide();
@@ -366,14 +371,18 @@ function chaos(){
 	slowButton.hide();
 	slider.hide();
 	input.hide();
-	
-	for (var x = 0; x < width; x+=skip){
-		for (var y = 0; y < height; y+=skip){
-			frameRate(10);
-			var trans = int(random(255));
-			var pick = int(random(80));
-			tint(255,trans);
-			image(sizeOne[pick],x,y);
+
+frameRate(10);
+	var choose = int(random(1));
+	if (choose == 0){
+		for (var x = 0; x < width; x+=skip){
+			for (var y = 0; y < height; y+=skip){
+				//frameRate(10);
+				var trans = int(random(255));
+				var pick = int(random(80));
+				tint(255,trans);
+				image(sizeOne[pick],x,y);
+			}
 		}
 	}
 }
@@ -428,7 +437,7 @@ function prints(){
 	rect(width-100,0,width-100,height);
 	rect(0,height-100,width,height);
 
-	save('image.jpg');
+	saveCanvas('image.jpg');
 
 	textFont('Avenir');
 	textAlign(CENTER);
