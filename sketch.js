@@ -44,12 +44,12 @@ var dangerOn = false;
 function preload(){
 
 	for (var i=0; i < 80; i++){
-		sizeOne[i] = loadImage("Images/One/1_"+i+".png");
-		sizeTwo[i] = loadImage("Images/Two/2_"+i+".png");
-		sizeFive[i] = loadImage("Images/Five/5_"+i+".png");
-		sizeTen[i] = loadImage("Images/Ten/10_"+i+".png");
-		half[i] = loadImage("Images/Half/H_"+i+".png");
-		quarter[i] = loadImage("Images/Quarter/Q_"+i+".png");
+		sizeOne[i] = loadImage("One/1_"+i+".png");
+		sizeTwo[i] = loadImage("Two/2_"+i+".png");
+		sizeFive[i] = loadImage("Five/5_"+i+".png");
+		sizeTen[i] = loadImage("Ten/10_"+i+".png");
+		half[i] = loadImage("Half/H_"+i+".png");
+		quarter[i] = loadImage("Quarter/Q_"+i+".png");
 	}
 }
 
