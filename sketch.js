@@ -54,8 +54,8 @@ function preload(){
 }
 
 function setup() {
-  createCanvas(700,700);
-
+  //createCanvas(700,700);
+	createCanvas(windowWidth,windowHeight);
   smooth();
 	pixelDensity(1);
 	fill(255);
@@ -199,10 +199,6 @@ function setup() {
 	dangerButton.style('border-radius:50%');
 	dangerButton.style('background-color:#f44336');
 	dangerButton.mousePressed(chaos);
-	
-	stroke(255,0,0);
-	line(319,0,319,height);
-	line(0,567,width,567);
 }
 
 function chaos(){
