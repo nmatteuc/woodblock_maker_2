@@ -55,7 +55,7 @@ function preload(){
 
 function setup() {
   createCanvas(700,700);
-	//background(255);
+
   smooth();
 	pixelDensity(1);
 	fill(255);
@@ -188,166 +188,19 @@ function setup() {
 	tenButton.position(630, bstart+150);
   tenButton.mousePressed(tens);
 	tenButton.size(40,20);
-	//fast button
-	speedButton = createButton('SPEED DEMON (click & drag)');
-  speedButton.position(620,height-160);
-	speedButton.size(60,60);
-	speedButton.mousePressed(fast);
-	//slow button
-	slowButton = createButton('SLOW POKE (click only)');
-  slowButton.position(620, height-230);
-	slowButton.size(60,60);
-	slowButton.mousePressed(slow);
-	/*
-	//video buttons
-	playButton = createButton('PLAY');
-  playButton.position(610,500);
-	playButton.mousePressed(play);
-	playButton.size(80,20);
-	pauseButton = createButton('PAUSE');
-  pauseButton.position(610,530);
-	pauseButton.mousePressed(pause);
-	pauseButton.size(80,20);
-*/
+	
 	input = createFileInput(handleFile);
 	input.position(10,460);
 	input.size(80,20);
-/*
-	capture = createCapture(VIDEO);
-	capture.size(1000,500);
-	capture.hide();
-	print(capture.width);
-	print(capture.height);
-*/
+
 	var dangerButton = createButton('DO NOT PUSH');
-	dangerButton.position(620,370);
+	dangerButton.position(620,540);
 	dangerButton.size(60,60);
 	dangerButton.style('border-radius:50%');
 	dangerButton.style('background-color:#f44336');
 	dangerButton.mousePressed(chaos);
 }
-/*
-//webcam run
-function run(){
 
-		noStroke();
-		fill(255);
-		rect(100,100,500,500);
-		frameRate(10);
-		//var val = slider.value();
-		//image(capture,100,100);
-
-		//loadPixels();
-
-		capture.loadPixels();
-		if(sizeButton == 0){
-		for (var x = 250; x < capture.width-250; x+=50){
-			for (var y = 0; y < capture.height; y+=50){
-				var index = (x + y * capture.width)*4;
-				var r = capture.pixels[index];
-				var g = capture.pixels[index+1];
-				var b = capture.pixels[index+2];
-				var a = capture.pixels[index+3];
-
-				var c = color(r,g,b,a);
-				var value = brightness(c);
-				var value2 = hue(c);
-
-				noStroke();
-				var pick = int(random(70,80));
-				tint(r,g,b);
-				image(sizeOne[pick],x-150,y+100);
-			}
-		}
-	}else if(sizeButton == 1){
-		for (var x = 250; x < capture.width-250; x+=100){
-			for (var y = 0; y < capture.height; y+=100){
-				var index = (x + y * capture.width)*4;
-				var r = capture.pixels[index];
-				var g = capture.pixels[index+1];
-				var b = capture.pixels[index+2];
-				var a = capture.pixels[index+3];
-
-				var c = color(r,g,b,a);
-				var value = brightness(c);
-				var value2 = hue(c);
-
-				noStroke();
-				var pick = int(random(70,80));
-				tint(r,g,b);
-				image(sizeTwo[pick],x-150,y+100);
-			}
-		}
-	}else if(sizeButton == 2){
-		for (var x = 250; x < capture.width-250; x+=250){
-			for (var y = 0; y < capture.height; y+=250){
-				var index = (x + y * capture.width)*4;
-				var r = capture.pixels[index];
-				var g = capture.pixels[index+1];
-				var b = capture.pixels[index+2];
-				var a = capture.pixels[index+3];
-
-				var c = color(r,g,b,a);
-				var value = brightness(c);
-				var value2 = hue(c);
-
-				noStroke();
-				var pick = int(random(70,80));
-				tint(r,g,b);
-				image(sizeFive[pick],x-150,y+100);
-			}
-		}
-	}else if(sizeButton == 3){
-		for (var x = 250; x < capture.width-250; x+=500){
-			for (var y = 0; y < capture.height; y+=500){
-				var index = (x + y * capture.width)*4;
-				var r = capture.pixels[index];
-				var g = capture.pixels[index+1];
-				var b = capture.pixels[index+2];
-				var a = capture.pixels[index+3];
-
-				var c = color(r,g,b,a);
-				var value = brightness(c);
-				var value2 = hue(c);
-
-				noStroke();
-				var pick = int(random(70,80));
-				tint(r,g,b);
-				image(sizeTen[pick],x-150,y+100);
-			}
-		}
-	}else if(sizeButton == 4){
-		frameRate(5);
-		for (var x = 250; x < capture.width-250; x+=25){
-			for (var y = 0; y < capture.height; y+=25){
-				var index = (x + y * capture.width)*4;
-				var r = capture.pixels[index];
-				var g = capture.pixels[index+1];
-				var b = capture.pixels[index+2];
-
-				var pick = int(random(70,80));
-				tint(r,g,b);
-				image(half[pick],x-150,y+100);
-			}
-		}
-	}else if(sizeButton == 5){
-		frameRate(5);
-		for (var x = 250; x < capture.width-250; x+=10){
-			for (var y = 0; y < capture.height; y+=10){
-				var index = (x + y * capture.width)*4;
-				var r = capture.pixels[index];
-				var g = capture.pixels[index+1];
-				var b = capture.pixels[index+2];
-
-				var pick = int(random(70,80));
-				tint(r,g,b);
-				image(quarter[pick],x-150,y+100);
-			}
-		}
-	}
-	//start = 0;
-}
-*/
 function chaos(){
 	dangerOn = true;
 
@@ -367,8 +220,7 @@ function chaos(){
 	fiveButton.hide();
 	tenButton.hide();
 	oneButton.hide();
-	speedButton.hide();
-	slowButton.hide();
+
 	slider.hide();
 	input.hide();
 
@@ -937,7 +789,7 @@ function Button (x,y,w,h,r,g,b){
 
 function mouseDragged(){
 
-	if(speed == 1){
+	//if(speed == 1){
 	var val = slider.value();
 
 	//switching colors
@@ -1182,5 +1034,5 @@ function mouseDragged(){
 				}
 			}
 		}
-	}
+	//}
 }
