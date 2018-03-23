@@ -54,7 +54,7 @@ function preload(){
 }
 
 function setup() {
-  createCanvas(displayWidth,displayHeight);
+  createCanvas(windowWidth,windowHeight);
 
   smooth();
 	pixelDensity(1);
