@@ -503,7 +503,7 @@ function drawImg(){
 	}
 }
 
-function mouseClicked(){
+function mousePressed(){
 	var val = slider.value();
 	//switching colors
 	if (sizeButton == 0){
