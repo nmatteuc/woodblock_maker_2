@@ -82,68 +82,83 @@ function preload(){
 }
 
 function windowResized(){
+	var isize = 60;
 
 	if (windowWidth < 700 || canvasW+200 > windowWidth){
 
 		var first = windowWidth/2-center;
-		var firstb = windowWidth/2-center+bsize+bSpace;
-		var second = windowWidth/2-center/2;
-		var secondb = windowWidth/2-center/2+bsize+bSpace;
-		var third = windowWidth/2;
-		var fourth = windowWidth/2+bsize*2;
-		var fifth = windowWidth/2+center/2+bsize+bSpace;
+		var firstb = windowWidth/2-center+isize+bSpace;
+		var second = windowWidth/2-center/2+bSpace;
+		var secondb = windowWidth/2-center/2+isize+bSpace*2;
+		var third = windowWidth/2+bSpace*4;
+		var fourth = windowWidth/2+isize*2;
+		var fifth = windowWidth/2+center/2+isize+bSpace;
 		var rowA = cHead+canvasH+bSpace;
-		var rowB = cHead+canvasH+bSpace+bsize;
-		var rowC = cHead+canvasH+bSpace*2+bsize*2;
-		var rowD = cHead+canvasH+bSpace*3+bsize*3;
-		var rowE = cHead+canvasH+bSpace*4+bsize*4;
-		var rowF = cHead+canvasH+bSpace*5+bsize*5;
+		var rowB = cHead+canvasH+bSpace+isize;
+		var rowC = cHead+canvasH+bSpace*2+isize*2;
+		var rowD = cHead+canvasH+bSpace*3+isize*3;
+		var rowE = cHead+canvasH+bSpace*4+isize*4;
+		var rowF = cHead+canvasH+bSpace*5+isize*5;
 
 		canvas.position(windowWidth/2-center,cHead);
 		website.position(windowWidth/2-45,40);
 
 		ink.position(first,rowA);
 	  redB.position(first,rowB);
+		redB.size(isize,isize);
 	  greenB.position(first,rowC);
+		greenB.size(isize,isize);
 	  blueB.position(first,rowD);
+		blueB.size(isize,isize);
 	  whiteB.position(first,rowE);
+		whiteB.size(isize,isize);
 	  cyanB.position(firstb,rowB);
+		cyanB.size(isize,isize);
 	  magentaB.position(firstb,rowC);
+		magentaB.size(isize,isize);
 	  yellowB.position(firstb,rowD);
+		yellowB.size(isize,isize);
 	  blackB.position(firstb,rowE);
+		blackB.size(isize,isize);
 
-		opacity.position(second,rowE);
-		slider.position(second,rowF);
+		opacity.position(third,rowA);
+		slider.position(third,rowB);
 
 		psize.position(second,rowA);
 	  one.position(second,rowB);
-		one.size(bsize,bsize);
+		one.size(isize,isize);
 	  two.position(secondb,rowB);
-		two.size(bsize,bsize);
+		two.size(isize,isize);
 	  three.position(second,rowC);
-		three.size(bsize,bsize);
+		three.size(isize,isize);
 	  four.position(secondb,rowC);
-		four.size(bsize,bsize);
+		four.size(isize,isize);
 	  five.position(second,rowD);
-		five.size(bsize,bsize);
+		five.size(isize,isize);
 	  six.position(secondb,rowD);
-		six.size(bsize,bsize);
+		six.size(isize,isize);
 
 		//upload.position(second,rowE);
 		//input.position(second,rowF);
 		upload.hide();
 		input.hide();
 
-		gsize.position(third,rowA);
-		gridOne.position(third,rowB);
-		gridTwo.position(third,rowC);
-		gridThree.position(third,rowD);
+		//gsize.position(third,rowA);
+		//gridOne.position(third,rowB);
+		//gridTwo.position(third,rowC);
+		//gridThree.position(third,rowD);
+		gsize.hide();
+		gridOne.hide();
+		gridTwo.hide();
+		gridThree.hide();
 
 		resetButton.position(fourth,rowB);
-		printButton.position(fourth,rowC);
+		resetButton.size(isize,isize);
+		//printButton.position(fourth,rowC);
+		printButton.hide();
 		dangerButton.position(fifth,rowB);
-
 	}else{
+		isize = 44;
 		canvas.position(windowWidth/2-center,cHead);
 		website.position(windowWidth/2-45,40);
 
@@ -156,7 +171,14 @@ function windowResized(){
 	  magentaB.position(windowWidth/2-center-bsize-bSpace,cHead+bsize*2+bSpace);
 	  yellowB.position(windowWidth/2-center-bsize-bSpace,cHead+bsize*3+bSpace*2);
 	  blackB.position(windowWidth/2-center-bsize-bSpace,cHead+bsize*4+bSpace*3);
-
+		redB.size(isize,isize);
+		greenB.size(isize,isize);
+		blueB.size(isize,isize);
+		whiteB.size(isize,isize);
+		cyanB.size(isize,isize);
+		magentaB.size(isize,isize);
+		yellowB.size(isize,isize);
+		blackB.size(isize,isize);
 
 		one.size(bsize,bsize/2);
 		two.size(bsize,bsize/2);
@@ -187,10 +209,16 @@ function windowResized(){
 		gridOne.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize*3+bSpace*2);
 		gridTwo.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize*2+bSpace);
 		gridThree.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize);
+		gsize.show();
+		gridOne.show();
+		gridTwo.show();
+		gridThree.show();
 
 		resetButton.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize*6);
+		resetButton.size(isize,isize);
 		printButton.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize*7+bSpace);
 		dangerButton.position(windowWidth/2+center+bSpace*3,canvasH+cHead-bsize*2);
+		printButton.show();
 	}
 }
 
