@@ -529,7 +529,7 @@ function grid() {
 }
 
 //mouse functions
-function mouseClicked(){
+function mousePressed(){
 	//switching colors
 	if (sizeButton == 0){
       for (var x = cs; x < width-cs; x += skip){
