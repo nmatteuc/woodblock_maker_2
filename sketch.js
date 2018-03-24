@@ -295,6 +295,7 @@ function grids(){
 	six.hide();
 	five.hide();
 	center = 350;
+	sizeButton = 0;
 	fill(255);
 	noStroke();
 	rect(0,0,canvasW,canvasH);
@@ -319,6 +320,7 @@ function gridsThree(){
 	six.hide();
 	five.hide();
 	center = 200;
+	sizeButton = 0;
 	stroke(230);
 	grid();
 }
