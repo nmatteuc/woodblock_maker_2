@@ -13,11 +13,17 @@ h1 {
   font-size: 18px;
   text-align: center;
 }
+p {
+  font-size: 12px;
+  text-align: center;
+}
+/*
 h2{
   font-size:14px;
   position:absolute;
   left: 10px;
 }
+
 h3{
   font-size:14px;
   position:absolute;
@@ -36,10 +42,7 @@ h5 {
   top:490px;
   left: 10px;
 }
-p {
-  font-size: 12px;
-  text-align: center;
-}
+
 
 .button {
   background-color: rgb(204,41,60);
@@ -89,7 +92,7 @@ p {
   top:232px;
   left:44px;
 }
-/*
+
 .button:hover {
   background-color: rgba(204,41,60,.5);
 }
