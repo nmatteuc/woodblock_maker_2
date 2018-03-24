@@ -4,7 +4,7 @@ var sizeButton = 0;
 var speed = 0;
 var bstart = 150;
 var bsizes = 80;
-var bsize = 80;
+var bsize = 44;
 var start = 0;
 
 var sizeOne = [];
@@ -36,7 +36,21 @@ var cs = 5;
 var cHead = 70;
 
 var ink;
-var val = 255;
+var val;
+var slider;
+var one;
+var two;
+var three;
+var four;
+var five;
+var six;
+
+var gridOne;
+var gridTwo;
+var gridThree;
+var gridSize = 0;
+
+var center = 250;
 
 function preload(){
 	for (var i=0; i < 80; i++){
@@ -50,7 +64,16 @@ function preload(){
 }
 
 function windowResized(){
-	canvas.position(windowWidth/2-250,cHead);
+
+
+		canvas.position(windowWidth/2-center,cHead);
+		dangerButton.position(windowWidth-98,400+cHead);
+		printButton.position(windowWidth-98,100+cHead);
+		resetButton.position(windowWidth-98,cHead);
+		gridOne.position(windowWidth-98,200+cHead);
+		gridTwo.position(windowWidth-98,300+cHead);
+		gridThree.position(windowWidth-98,250+cHead);
+	/*
 	ink.position(windowWidth/2-canvasW/2-bsizes-cs*2,cHead);
 	trans.position(windowWidth/2-canvasW/2-bsizes-cs*2,cHead+bsizes+cs*2);
 	sizes.position(windowWidth/2-canvasW/2-bsizes/2-cs*2-((bsizes*.7)/2),cHead+bsizes*2+cs*4);
@@ -58,11 +81,9 @@ function windowResized(){
 	resetButton.position(windowWidth/2-canvasW/2-bsizes-cs*2,cHead+bsizes*4+cs*8);
 	printButton.position(windowWidth/2-canvasW/2-bsizes-cs*2,cHead+bsizes*4.25+cs*10);
 	dangerButton.position(windowWidth/2-canvasW/2-bsizes-cs*2,cHead+bsizes*4.5+cs*12);
-
-	//if (something){
-		//resizeCanvas (canvasW,canvasH+100);
+*/
 		//resizeCanvas(canvasW+300,canvasH);
-	//}
+
 }
 
 function setup() {
@@ -72,10 +93,40 @@ function setup() {
 	pixelDensity(1);
 	fill(255);
 	noStroke();
-	rect(0,0,700,700);
+	rect(0,0,width,height);
 	stroke(230);
   grid();
+	//transparency slicer
+	slider = createSlider(0,255,255,25);
+	slider.position(10,325);
+	slider.style('width','80px')
 
+	//size button
+	one = createButton('10px');
+  one.position(10,400);
+	one.size(44,20);
+	one.mousePressed(ones);
+	two = createButton('25px');
+	two.size(44,20);
+  two.position(64,400);
+	two.mousePressed(twos);
+	three = createButton('50px');
+	three.size(44,20);
+  three.position(10,430);
+	three.mousePressed(threes);
+	four = createButton('100px');
+	four.size(44,20);
+  four.position(64,430);
+	four.mousePressed(fours);
+	five = createButton('250px');
+	five.size(44,20);
+  five.position(10,460);
+	five.mousePressed(fives);
+	six = createButton('500px');
+	six.size(44,20);
+  six.position(64,460);
+	six.mousePressed(sixes);
+/*
 	//ink select
 	ink = createSelect();
 	ink.position(windowWidth/2-canvasW/2-bsizes-cs*2,cHead);
@@ -123,30 +174,50 @@ function setup() {
 	sizes.option('25px');
 	sizes.option('10px');
 	sizes.changed(mySizes);
-
+*/
 	//choose file to upload
 	input = createFileInput(handleFile);
-	input.position(windowWidth/2-canvasW/2-bsizes-cs*2,cHead+bsizes*3.75+cs*6);
-	input.style('font-size:14px');
-	input.size(bsizes,bsizes/4);
+	input.position(10,550);
+	//input.style('font-size:14px');
+	input.size(82,20);
+	//input.style('padding:100px');
 	//input.style('font-size', '30px');
 
 	//reset button
 	resetButton = createButton('RESET');
-  resetButton.position(windowWidth/2-canvasW/2-bsizes-cs*2,cHead+bsizes*4+cs*8);
-	resetButton.style('font-size:14px');
-	resetButton.size(bsizes,bsizes/4);
+  resetButton.position(windowWidth-98,cHead);
+	//resetButton.style('font-size:14px');
+	resetButton.size(bsizes,bsizes);
   resetButton.mousePressed(reset);
+
 	//print button
-	printButton = createButton('DOWNLOAD');
-  printButton.position(windowWidth/2-canvasW/2-bsizes-cs*2,cHead+bsizes*4.25+cs*10);
-	printButton.style('font-size:12px');
-	printButton.size(bsizes,bsizes/4);
+	printButton = createButton('SAVE');
+  printButton.position(windowWidth-98,100+cHead);
+	//printButton.style('font-size:14px');
+	printButton.size(bsizes,bsizes);
   printButton.mousePressed(prints);
+	//print button
+	gridOne = createButton('14x10');
+  gridOne.position(windowWidth-98,200+cHead);
+	//printButton.style('font-size:14px');
+	gridOne.size(bsizes,bsizes/2);
+  gridOne.mousePressed(grids);
+
+	gridTwo = createButton('10x10');
+  gridTwo.position(windowWidth-98,300+cHead);
+	//printButton.style('font-size:14px');
+	gridTwo.size(bsizes,bsizes/2);
+  gridTwo.mousePressed(gridsTwo);
+
+	gridThree = createButton('8x10');
+  gridThree.position(windowWidth-98,250+cHead);
+	//printButton.style('font-size:14px');
+	gridThree.size(bsizes,bsizes/2);
+  gridThree.mousePressed(gridsThree);
 	//dangerbutton
 	dangerButton = createButton('DO NOT PUSH');
-	dangerButton.position(windowWidth/2-canvasW/2-bsizes-cs*2,cHead+bsizes*4.5+cs*12);
-	dangerButton.size(bsizes,bsizes);
+	dangerButton.position(windowWidth-98,400+cHead);
+	dangerButton.size(88,88);
 	dangerButton.style('font-size:14px');
 	dangerButton.style('border-radius:50%');
 	dangerButton.style('background-color:#f44336');
@@ -170,7 +241,7 @@ function setup() {
 */
 
 }
-
+/*
 function myInk(){
 	var item = ink.value();
 	if (item == 'BLACK'){
@@ -215,6 +286,41 @@ function myInk(){
 		ink.style('background-color',col);
 		lastButton = 3;
 	}
+}
+*/
+function grids(){
+	canvasW = 710;
+	resizeCanvas(canvasW,canvasH);
+	canvas.position(windowWidth/2-350,cHead);
+	six.hide();
+	five.hide();
+	center = 350;
+	fill(255);
+	noStroke();
+	rect(0,0,canvasW,canvasH);
+	stroke(230);
+	grid();
+}
+function gridsTwo(){
+	canvasW = 510;
+	resizeCanvas(canvasW,canvasH);
+	canvas.position(windowWidth/2-250,cHead);
+	six.show();
+	five.show();
+	center = 250;
+	stroke(230);
+	grid();
+}
+
+function gridsThree(){
+	canvasW = 410;
+	resizeCanvas(canvasW,canvasH);
+	canvas.position(windowWidth/2-200,cHead);
+	six.hide();
+	five.hide();
+	center = 200;
+	stroke(230);
+	grid();
 }
 function myTrans(){
 	var item = trans.value();
@@ -284,6 +390,25 @@ function mySizes(){
 		sizes.position(windowWidth/2-canvasW/2-bsizes/2-cs*2-((bsizes*.5)/2),cHead+bsizes*2+cs*4);
 	}
 }
+
+function ones(){
+	sizeButton = 5;
+}
+function twos(){
+	sizeButton = 4;
+}
+function threes(){
+	sizeButton = 0;
+}
+function fours(){
+	sizeButton = 1;
+}
+function fives(){
+	sizeButton = 2;
+}
+function sixes(){
+	sizeButton = 3;
+}
 //upload image functions
 function handleFile(file){
 	if (file.type === 'image') {
@@ -299,6 +424,8 @@ function drawImg(){
 		image(img,0,0,width,height);
 		img.hide();
 		loadPixels();
+
+	//	img.show();
 
 		for (var x = cs; x < width-cs; x+=50){
 			for (var y = cs; y < height-cs; y+=50){
@@ -495,11 +622,7 @@ function prints(){
 	//erase the grid
 	stroke(255);
 	grid();
-	//erase the sides
 	saveCanvas('image.jpg');
-
-	//text("WOODBLOCK PIXEL MAKER",width/2,60);
-
 	stroke(230);
   grid();
 }
@@ -525,11 +648,12 @@ function pause(){
 function grid() {
   strokeWeight(2);
 	noFill();
-	rect(0,0,width,height);
+	rect(0,0,canvasW,canvasH);
 }
 
 //mouse functions
 function mousePressed(){
+	val = slider.value();
 	//switching colors
 	if (sizeButton == 0){
       for (var x = cs; x < width-cs; x += skip){
@@ -614,38 +738,46 @@ function mousePressed(){
 	}else if (sizeButton == 2) {
       for (var x = cs; x < width-cs; x += skip*5){
         for (var y = cs; y < height-cs; y += skip*5){
-          if (mouseX >= x && mouseX < (x+skip*5) && mouseY >= y && mouseY < (y+skip*5)){
+          if (mouseX >= x && mouseX < (x+skip*4) && mouseY >= y && mouseY < (y+skip*4)){
 						if (lastButton == 4){ //black
 							var pick = int(random(10,20));
 							tint(255,val);
+							//sizeFive[pick].resize(200,0);
 							image(sizeFive[pick],x,y);
 						}else if(lastButton == 1){ //red
 							var pick = int(random(0,10));
 							tint(255,val);
+							//sizeFive[pick].resize(200,0);
 							image(sizeFive[pick],x,y);
 						}else if(lastButton == 2){ //green
 							var pick = int(random(20,30));
 							tint(255,val);
+							//sizeFive[pick].resize(200,0);
 							image(sizeFive[pick],x,y);
 						}else if(lastButton == 3){ //blue
 							var pick = int(random(30,40));
 							tint(255,val);
+							//sizeFive[pick].resize(200,0);
 							image(sizeFive[pick],x,y);
 						}else if(lastButton == 6){ //mag
 							var pick = int(random(40,50));
 							tint(255,val);
+							//sizeFive[pick].resize(200,0);
 							image(sizeFive[pick],x,y);
 						}else if(lastButton == 5){ //cyan
 							var pick = int(random(50,60));
 							tint(255,val);
+							//sizeFive[pick].resize(200,0);
 							image(sizeFive[pick],x,y);
 						}else if(lastButton == 7){ //yellow
 							var pick = int(random(60,70));
 							tint(255,val);
+							//sizeFive[pick].resize(200,0);
 							image(sizeFive[pick],x,y);
 						}else if(lastButton == 8){ //white
 							var pick = int(random(70,80));
 							tint(255,val);
+							//sizeFive[pick].resize(200,0);
 							image(sizeFive[pick],x,y);
 						}
 					}
@@ -774,6 +906,7 @@ function mousePressed(){
 		}
 }
 function mouseDragged(){
+	val = slider.value();
 	//switching colors
 	if (sizeButton == 0){
       for (var x = cs; x < width-cs; x += skip){
