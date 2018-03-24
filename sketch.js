@@ -112,8 +112,8 @@ function windowResized(){
 	  yellowB.position(firstb,rowD);
 	  blackB.position(firstb,rowE);
 
-		opacity.position(second,rowD);
-		slider.position(second,rowE);
+		opacity.position(second,rowE);
+		slider.position(second,rowF);
 
 		psize.position(second,rowA);
 	  one.position(second,rowB);
