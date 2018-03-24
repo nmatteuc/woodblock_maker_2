@@ -99,7 +99,7 @@ function windowResized(){
 		opacity.position(windowWidth/2-center+bsize*2+bSpace*3,cHead+canvasH+bSpace);
 		slider.position(windowWidth/2-center+bsize*2+bSpace*3,cHead+canvasH+bsize);
 
-		psize.position(windowWidth/2-center+bsize*2+bSpace*3,cHead+canvasH+bsize*2);
+		psize.position(windowWidth/2-center+bsize*2+bSpace*3,cHead+canvasH+bsize+bSpace*3);
 	  one.position(windowWidth/2-center+bsize*2+bSpace*3,cHead+canvasH+bsize*2+bSpace*2);
 	  two.position(windowWidth/2-center+bsize*3+bSpace*4,cHead+canvasH+bsize*2+bSpace*2);
 	  three.position(windowWidth/2-center+bsize*2+bSpace*3,cHead+canvasH+bsize*3+bSpace*3);
@@ -107,27 +107,18 @@ function windowResized(){
 	  five.position(windowWidth/2-center+bsize*2+bSpace*3,cHead+canvasH+bsize*4+bSpace*4);
 	  six.position(windowWidth/2-center+bsize*3+bSpace*4,cHead+canvasH+bsize*4+bSpace*4);
 
-		upload.position(windowWidth/2-center-bSpace*2-bsize*2,510);
-		input.position(windowWidth/2-center-bSpace*2-sliderSize,550);
+		upload.position(windowWidth/2-center+bsize*6+bSpace*6,cHead+canvasH+bsize*2+bSpace*3);
+		input.position(windowWidth/2-center+bsize*6+bSpace*6,cHead+canvasH+bsize*2+bSpace*4);
 
-		gsize.position(windowWidth/2+center+bSpace*2+bsize/2,cHead);
-		gridOne.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize*3+bSpace*2);
-		gridTwo.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize*2+bSpace);
-		gridThree.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize);
+		gsize.position(windowWidth/2-center+bsize*4+bSpace*4,cHead+canvasH+bSpace);
+		gridOne.position(windowWidth/2-center+bsize*4+bSpace*4,cHead+canvasH+bsize+bSpace*2);
+		gridTwo.position(windowWidth/2-center+bsize*4+bSpace*4,cHead+canvasH+bsize*2+bSpace*3);
+		gridThree.position(windowWidth/2-center+bsize*4+bSpace*4,cHead+canvasH+bsize*3+bSpace*4);
 
-		resetButton.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize*6);
-		printButton.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize*7+bSpace);
-		dangerButton.position(windowWidth/2+center+bSpace*3,canvasH+cHead-bsize*2);
+		resetButton.position(windowWidth/2-center+bsize*6+bSpace*6,cHead+canvasH+bsize+bSpace*2);
+		printButton.position(windowWidth/2-center+bsize*7+bSpace*7,cHead+canvasH+bsize+bSpace*2);
+		dangerButton.position(windowWidth/2-center+bsize*8+bSpace*10,cHead+canvasH+bsize/2+bSpace*2);
 
-		upload.hide();
-		input.hide();
-		gsize.hide();
-		gridOne.hide();
-		gridTwo.hide();
-		gridThree.hide();
-		resetButton.hide();
-		printButton.hide();
-		dangerButton.hide();
 	}else{
 		canvas.position(windowWidth/2-center,cHead);
 
@@ -164,16 +155,6 @@ function windowResized(){
 		resetButton.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize*6);
 		printButton.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize*7+bSpace);
 		dangerButton.position(windowWidth/2+center+bSpace*3,canvasH+cHead-bsize*2);
-
-		upload.show();
-		input.show();
-		gsize.show();
-		gridOne.show();
-		gridTwo.show();
-		gridThree.show();
-		resetButton.show();
-		printButton.show();
-		dangerButton.show();
 	}
 }
 
