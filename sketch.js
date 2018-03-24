@@ -68,7 +68,7 @@ var gridThree;
 var gridSize = 0;
 
 //text
-var ink,opacity,psize,upload,gsize;
+var ink,opacity,psize,upload,gsize,website;
 
 function preload(){
 	for (var i=0; i < 80; i++){
@@ -83,44 +83,69 @@ function preload(){
 
 function windowResized(){
 
-	if (windowWidth < 700){
+	if (windowWidth < 700 || canvasW+200 > windowWidth){
+
+		var first = windowWidth/2-center;
+		var firstb = windowWidth/2-center+bsize+bSpace;
+		var second = windowWidth/2-center/2;
+		var secondb = windowWidth/2-center/2+bsize+bSpace;
+		var third = windowWidth/2;
+		var fourth = windowWidth/2+bsize*2;
+		var fifth = windowWidth/2+center/2+bsize+bSpace;
+		var rowA = cHead+canvasH+bSpace;
+		var rowB = cHead+canvasH+bSpace+bsize;
+		var rowC = cHead+canvasH+bSpace*2+bsize*2;
+		var rowD = cHead+canvasH+bSpace*3+bsize*3;
+		var rowE = cHead+canvasH+bSpace*4+bsize*4;
+		var rowF = cHead+canvasH+bSpace*5+bsize*5;
+
 		canvas.position(windowWidth/2-center,cHead);
+		website.position(windowWidth/2-45,40);
 
-		ink.position(windowWidth/2-center,cHead+canvasH+bSpace);
-	  redB.position(windowWidth/2-center,cHead+canvasH+bsize+bSpace);
-	  greenB.position(windowWidth/2-center,cHead+canvasH+bsize*2+bSpace*2);
-	  blueB.position(windowWidth/2-center,cHead+canvasH+bsize*3+bSpace*3);
-	  whiteB.position(windowWidth/2-center,cHead+canvasH+bsize*4+bSpace*4);
-	  cyanB.position(windowWidth/2-center+bsize+bSpace,cHead+canvasH+bsize+bSpace);
-	  magentaB.position(windowWidth/2-center+bsize+bSpace,cHead+canvasH+bsize*2+bSpace*2);
-	  yellowB.position(windowWidth/2-center+bsize+bSpace,cHead+canvasH+bsize*3+bSpace*3);
-	  blackB.position(windowWidth/2-center+bsize+bSpace,cHead+canvasH+bsize*4+bSpace*4);
+		ink.position(first,rowA);
+	  redB.position(first,rowB);
+	  greenB.position(first,rowC);
+	  blueB.position(first,rowD);
+	  whiteB.position(first,rowE);
+	  cyanB.position(firstb,rowB);
+	  magentaB.position(firstb,rowC);
+	  yellowB.position(firstb,rowD);
+	  blackB.position(firstb,rowE);
 
-		opacity.position(windowWidth/2-center+bsize*2+bSpace*3,cHead+canvasH+bSpace);
-		slider.position(windowWidth/2-center+bsize*2+bSpace*3,cHead+canvasH+bsize);
+		opacity.position(second,rowD);
+		slider.position(second,rowE);
 
-		psize.position(windowWidth/2-center+bsize*2+bSpace*3,cHead+canvasH+bsize+bSpace*3);
-	  one.position(windowWidth/2-center+bsize*2+bSpace*3,cHead+canvasH+bsize*2+bSpace*2);
-	  two.position(windowWidth/2-center+bsize*3+bSpace*4,cHead+canvasH+bsize*2+bSpace*2);
-	  three.position(windowWidth/2-center+bsize*2+bSpace*3,cHead+canvasH+bsize*3+bSpace*3);
-	  four.position(windowWidth/2-center+bsize*3+bSpace*4,cHead+canvasH+bsize*3+bSpace*3);
-	  five.position(windowWidth/2-center+bsize*2+bSpace*3,cHead+canvasH+bsize*4+bSpace*4);
-	  six.position(windowWidth/2-center+bsize*3+bSpace*4,cHead+canvasH+bsize*4+bSpace*4);
+		psize.position(second,rowA);
+	  one.position(second,rowB);
+		one.size(bsize,bsize);
+	  two.position(secondb,rowB);
+		two.size(bsize,bsize);
+	  three.position(second,rowC);
+		three.size(bsize,bsize);
+	  four.position(secondb,rowC);
+		four.size(bsize,bsize);
+	  five.position(second,rowD);
+		five.size(bsize,bsize);
+	  six.position(secondb,rowD);
+		six.size(bsize,bsize);
 
-		upload.position(windowWidth/2-center+bsize*6+bSpace*6,cHead+canvasH+bsize*2+bSpace*3);
-		input.position(windowWidth/2-center+bsize*6+bSpace*6,cHead+canvasH+bsize*2+bSpace*4);
+		//upload.position(second,rowE);
+		//input.position(second,rowF);
+		upload.hide();
+		input.hide();
 
-		gsize.position(windowWidth/2-center+bsize*4+bSpace*4,cHead+canvasH+bSpace);
-		gridOne.position(windowWidth/2-center+bsize*4+bSpace*4,cHead+canvasH+bsize+bSpace*2);
-		gridTwo.position(windowWidth/2-center+bsize*4+bSpace*4,cHead+canvasH+bsize*2+bSpace*3);
-		gridThree.position(windowWidth/2-center+bsize*4+bSpace*4,cHead+canvasH+bsize*3+bSpace*4);
+		gsize.position(third,rowA);
+		gridOne.position(third,rowB);
+		gridTwo.position(third,rowC);
+		gridThree.position(third,rowD);
 
-		resetButton.position(windowWidth/2-center+bsize*6+bSpace*6,cHead+canvasH+bsize+bSpace*2);
-		printButton.position(windowWidth/2-center+bsize*7+bSpace*7,cHead+canvasH+bsize+bSpace*2);
-		dangerButton.position(windowWidth/2-center+bsize*8+bSpace*10,cHead+canvasH+bsize/2+bSpace*2);
+		resetButton.position(fourth,rowB);
+		printButton.position(fourth,rowC);
+		dangerButton.position(fifth,rowB);
 
 	}else{
 		canvas.position(windowWidth/2-center,cHead);
+		website.position(windowWidth/2-45,40);
 
 		ink.position(windowWidth/2-center-bSpace*2-bsize*2,cHead);
 	  redB.position(windowWidth/2-center-bSpace*2-bsize*2,cHead+bsize);
@@ -132,20 +157,31 @@ function windowResized(){
 	  yellowB.position(windowWidth/2-center-bsize-bSpace,cHead+bsize*3+bSpace*2);
 	  blackB.position(windowWidth/2-center-bsize-bSpace,cHead+bsize*4+bSpace*3);
 
+
+		one.size(bsize,bsize/2);
+		two.size(bsize,bsize/2);
+		three.size(bsize,bsize/2);
+		four.size(bsize,bsize/2);
+		five.size(bsize,bsize/2);
+		six.size(bsize,bsize/2);
+
 		opacity.position(windowWidth/2-center-bSpace*2-bsize*2,320);
 		slider.position(windowWidth/2-center-bSpace*2-sliderSize,350);
 
-		psize.position(windowWidth/2-center-bSpace*2-bsize*2,365);
-	  one.position(windowWidth/2-center-bSpace*2-bsize*2,400);
-	  two.position(windowWidth/2-center-bSpace-bsize,400);
-	  three.position(windowWidth/2-center-bSpace*2-bsize*2,430);
-	  four.position(windowWidth/2-center-bSpace-bsize,430);
-	  five.position(windowWidth/2-center-bSpace*2-bsize*2,460);
-	  six.position(windowWidth/2-center-bSpace-bsize,460);
-		six.mousePressed(sixes);
+		psize.position(windowWidth/2-center-bSpace*2-bsize*2,380);
+
+		//size button
+	  one.position(windowWidth/2-center-bSpace*2-bsize*2,415);
+	  two.position(windowWidth/2-center-bSpace-bsize,415);
+	  three.position(windowWidth/2-center-bSpace*2-bsize*2,445);
+	  four.position(windowWidth/2-center-bSpace-bsize,445);
+	  five.position(windowWidth/2-center-bSpace*2-bsize*2,475);
+	  six.position(windowWidth/2-center-bSpace-bsize,475);
 
 		upload.position(windowWidth/2-center-bSpace*2-bsize*2,510);
 		input.position(windowWidth/2-center-bSpace*2-sliderSize,550);
+		upload.show();
+		input.show();
 
 		gsize.position(windowWidth/2+center+bSpace*2+bsize/2,cHead);
 		gridOne.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize*3+bSpace*2);
@@ -162,6 +198,7 @@ function setup() {
 	//set up canvas
   canvas = createCanvas(canvasW,canvasH);
 	canvas.position(windowWidth/2-250,cHead);
+
   smooth();
 	pixelDensity(1);
 	fill(255);
@@ -169,6 +206,9 @@ function setup() {
 	rect(0,0,width,height);
 	stroke(230);
   grid();
+
+	website = createA('http://noahmatteucci.com/home.html','noahmatteucci.com');
+	website.position(windowWidth/2-45,40);
 
 	ink = createP('INK:');
 	ink.position(windowWidth/2-center-bSpace*2-bsize*2,cHead);
@@ -236,32 +276,32 @@ function setup() {
 	slider.style('width','80px')
 
 	psize = createP('PIXEL SIZE:');
-	psize.position(windowWidth/2-center-bSpace*2-bsize*2,365);
+	psize.position(windowWidth/2-center-bSpace*2-bsize*2,380);
 
 	//size button
 	one = createButton('10px');
-  one.position(windowWidth/2-center-bSpace*2-bsize*2,400);
+  one.position(windowWidth/2-center-bSpace*2-bsize*2,415);
 	one.size(bsize,bsize/2);
 	one.mousePressed(ones);
 	two = createButton('25px');
 	two.size(bsize,bsize/2);
-  two.position(windowWidth/2-center-bSpace-bsize,400);
+  two.position(windowWidth/2-center-bSpace-bsize,415);
 	two.mousePressed(twos);
 	three = createButton('50px');
 	three.size(bsize,bsize/2);
-  three.position(windowWidth/2-center-bSpace*2-bsize*2,430);
+  three.position(windowWidth/2-center-bSpace*2-bsize*2,445);
 	three.mousePressed(threes);
 	four = createButton('100px');
 	four.size(bsize,bsize/2);
-  four.position(windowWidth/2-center-bSpace-bsize,430);
+  four.position(windowWidth/2-center-bSpace-bsize,445);
 	four.mousePressed(fours);
 	five = createButton('250px');
 	five.size(bsize,bsize/2);
-  five.position(windowWidth/2-center-bSpace*2-bsize*2,460);
+  five.position(windowWidth/2-center-bSpace*2-bsize*2,475);
 	five.mousePressed(fives);
 	six = createButton('500px');
 	six.size(bsize,bsize/2);
-  six.position(windowWidth/2-center-bSpace-bsize,460);
+  six.position(windowWidth/2-center-bSpace-bsize,475);
 	six.mousePressed(sixes);
 
 	upload = createP('UPLOAD IMAGE:');
@@ -326,9 +366,9 @@ function setup() {
 	print(capture.width);
 	print(capture.height);
 */
-	if (windowWidth<700){
-		windowResized();
-	}
+if (windowWidth<700){
+	windowResized();
+}
 
 }
 
@@ -616,7 +656,7 @@ function draw() {
 		//run();
 	//}
 
-	print(windowWidth);
+	//print(windowWidth);
 	if (dangerOn){
 		chaos();
 	}
