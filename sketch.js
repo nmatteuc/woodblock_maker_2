@@ -326,6 +326,9 @@ function setup() {
 	print(capture.width);
 	print(capture.height);
 */
+	if (windowWidth<700){
+		windowResized();
+	}
 
 }
 
