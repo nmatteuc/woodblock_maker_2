@@ -78,7 +78,7 @@ function setup() {
 
 	//ink select
 	ink = createSelect();
-	ink.position(100,cHead);
+	ink.position(windowWidth/2,cHead);
 	ink.size(bsizes,bsizes);
 	ink.style('font-size','14px');
 	ink.style('textAlign','center');
