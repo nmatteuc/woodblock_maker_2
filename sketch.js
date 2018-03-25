@@ -85,7 +85,7 @@ function preload(){
 function windowResized(){
 	var isize = 60;
 
-	if (windowWidth < 700 || canvasW+200 > windowWidth){
+	if (windowWidth < windowHeight){ // < 700 || canvasW+200 > windowWidth){
 
 		//resizeCanvas(310,310);
 		//canvas.position((windoWidth/2)-(width/2));
