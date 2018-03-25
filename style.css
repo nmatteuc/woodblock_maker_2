@@ -1,6 +1,6 @@
 
 body {
-  margin:0;
+  margin:auto;
   padding:0;
   overflow: hidden;
 }
@@ -10,16 +10,18 @@ canvas {
 }
 
 h1 {
-  font-size: 18px;
-  text-align: center;
 }
 
 p {
-  font-size: 12px;
-  text-align: center;
+  font-family: "Avenir",Times,serif;
+  font-weight: bold;
+  font-size: 14px;
+  /*text-align: center;*/
 }
 
 a {
+  font-family: "Avenir",Times,serif;
+  font-weight: bold;
   font-size: 14px;
 }
 /*
