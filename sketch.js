@@ -1,13 +1,10 @@
-var skip = 50;
-var lastButton = 4;
-var sizeButton = 0;
-var speed = 0;
-var bstart = 150;
-var bsizes = 80;
-var bsize = 44;
-var sliderSize = 80;
-var start = 0;
+var skip = 50;	//pixel size
+var lastButton = 4;	//ink choice
+var sizeButton = 0;	//size choice
+var bSize = 60;	//button size
+var sliderSize = 80; //slider size
 
+//pixel image arrays
 var sizeOne = [];
 var sizeTwo = []
 var sizeFive = [];
@@ -15,34 +12,7 @@ var sizeTen = [];
 var half = [];
 var quarter = [];
 
-var resetButton;
-var printButton;
-var speedButton;
-var slowButton;
-var playButton;
-var pauseButton;
-var dangerButton;
-
-var input;
-var img;
-var capture;
-var camOn = false;
-var dangerOn = false;
-
-var canvas;
-var canvasW = 510;
-var canvasH = 510;
-//starting distance away from center of grid
-var center = 250;
-//canvas border
-var cs = 5;
-//canvas header
-var cHead = 70;
-//left margin
-var lMar = 150;
-//space around ink buttons
-var bSpace = 5;
-
+//buttons
 var redB;
 var greenB;
 var blueB;
@@ -52,9 +22,8 @@ var yellowB;
 var whiteB;
 var blackB;
 
-var ink;
-var val;
-var slider;
+var slider, val;
+
 var one;
 var two;
 var three;
@@ -62,14 +31,34 @@ var four;
 var five;
 var six;
 
+var input, img;
+
 var gridOne;
 var gridTwo;
 var gridThree;
 var gridSize = 0;
 var whichGrid;
 
+var resetButton;
+var printButton;
+var dangerButton;
+var dangerOn = false;
+
+//canvas
+var canvas;
+var canvasW = 510;
+var canvasH = 510;
+var center = 250;	//starting distance away from center of canvas
+var cs = 5;	//canvas border
+var cHead = 70;	//canvas header
+var bSpace = 5;	//space around ink buttons
+
 //text
-var ink,opacity,psize,upload,gsize,website;
+var ink,opacity,psize,upload,gsize,website,title;
+var tFont = 'Avenir';
+var sFont = '20px';
+var psFont = '14px';
+
 
 function preload(){
 	for (var i=0; i < 80; i++){
@@ -84,18 +73,14 @@ function preload(){
 
 function windowResized(){
 	var isize = 60;
-
-	if (windowWidth < windowHeight){ // < 700 || canvasW+200 > windowWidth){
-
-		//resizeCanvas(310,310);
-		//canvas.position((windoWidth/2)-(width/2));
-		var first = windowWidth/2-center;
-		var firstb = windowWidth/2-center+isize+bSpace;
+	if (windowWidth < windowHeight){// || canvasW+200 > windowWidth){
+		var first = windowWidth/windowWidth+10;
+		var firstb = windowWidth/windowWidth+isize+bSpace;
 		var second = windowWidth/2-center/2+bSpace;
 		var secondb = windowWidth/2-center/2+isize+bSpace*2;
 		var third = windowWidth/2+bSpace*4;
-		var fourth = windowWidth/2+isize*2;
-		var fifth = windowWidth/2+center/2+isize+bSpace;
+		var fourth = windowWidth-isize*2;
+
 		var rowA = cHead+canvasH+bSpace;
 		var rowB = cHead+canvasH+bSpace+isize;
 		var rowC = cHead+canvasH+bSpace*2+isize*2;
@@ -104,7 +89,8 @@ function windowResized(){
 		var rowF = cHead+canvasH+bSpace*5+isize*5;
 
 		canvas.position(windowWidth/2-center,cHead);
-		website.position(windowWidth/2-45,40);
+		title.position(windowWidth/2-90,0);
+		website.position(windowWidth/2-45,45);
 
 		ink.position(first,rowA);
 	  redB.position(first,rowB);
@@ -125,7 +111,7 @@ function windowResized(){
 		blackB.size(isize,isize);
 
 		opacity.position(third,rowA);
-		slider.position(third,rowB);
+		slider.position(third-isize,rowC);
 
 		psize.position(second,rowA);
 	  one.position(second,rowB);
@@ -157,70 +143,73 @@ function windowResized(){
 
 		resetButton.position(fourth,rowB);
 		resetButton.size(isize,isize);
-		//printButton.position(fourth,rowC);
-		printButton.hide();
-		dangerButton.position(fifth,rowB);
+		printButton.position(fourth,rowC);
+		dangerButton.position(fourth,rowD);
 	}else{
-		isize = 44;
+		var padding = 100;
+		var colOne = windowWidth/2-center-padding-bSize*2-bSpace*3;
+		var colTwo = windowWidth/2-center-padding-bSize-bSpace*2;
+		var colThree = windowWidth/2-center-padding-bSpace;
+
+		var colFour = windowWidth/2+center+padding/4+bSpace;
+		var colFive = windowWidth/2+center+padding/4+bSize+bSpace*2;
+
+		var rowOne = cHead;
+		var rowTwo = cHead+bSize+bSpace;
+		var rowThree = cHead+bSize*2+bSpace*2;
+		var rowFour = cHead+bSize*3+bSpace*3;
+		var rowFive = cHead+bSize*4+bSpace*4;
+		var rowSix = cHead+bSize*5+bSpace*5;
+		var rowSeven = cHead+bSize*6+bSpace*6;
+		var rowEight = cHead+bSize*7+bSpace*7;
+		var rowNine = cHead+bSize*8+bSpace*8;
+		var rowTen = cHead+bSize*9+bSpace*9;
+		var rowEleven = cHead+bSize*10+bSpace*10;
+
 		canvas.position(windowWidth/2-center,cHead);
-		website.position(windowWidth/2-45,40);
+		title.position(windowWidth/2-90,0);
+		website.position(windowWidth/2-45,45);
 
-		ink.position(windowWidth/2-center-bSpace*2-bsize*2,cHead);
-	  redB.position(windowWidth/2-center-bSpace*2-bsize*2,cHead+bsize);
-	  greenB.position(windowWidth/2-center-bSpace*2-bsize*2,cHead+bsize*2+bSpace);
-	  blueB.position(windowWidth/2-center-bSpace*2-bsize*2,cHead+bsize*3+bSpace*2);
-	  whiteB.position(windowWidth/2-center-bSpace*2-bsize*2,cHead+bsize*4+bSpace*3);
-	  cyanB.position(windowWidth/2-center-bsize-bSpace,cHead+bsize);
-	  magentaB.position(windowWidth/2-center-bsize-bSpace,cHead+bsize*2+bSpace);
-	  yellowB.position(windowWidth/2-center-bsize-bSpace,cHead+bsize*3+bSpace*2);
-	  blackB.position(windowWidth/2-center-bsize-bSpace,cHead+bsize*4+bSpace*3);
-		redB.size(isize,isize);
-		greenB.size(isize,isize);
-		blueB.size(isize,isize);
-		whiteB.size(isize,isize);
-		cyanB.size(isize,isize);
-		magentaB.size(isize,isize);
-		yellowB.size(isize,isize);
-		blackB.size(isize,isize);
+		ink.position(colOne,rowOne+bSpace*4);
+	  redB.position(colOne,rowTwo);
+	  greenB.position(colOne,rowThree);
+	  blueB.position(colOne,rowFour);
+	  whiteB.position(colOne,rowFive);
+	  cyanB.position(colTwo,rowTwo);
+	  magentaB.position(colTwo,rowThree);
+	  yellowB.position(colTwo,rowFour);
+	  blackB.position(colTwo,rowFive);
 
-		one.size(bsize,bsize/2);
-		two.size(bsize,bsize/2);
-		three.size(bsize,bsize/2);
-		four.size(bsize,bsize/2);
-		five.size(bsize,bsize/2);
-		six.size(bsize,bsize/2);
+		opacity.position(colThree+bSpace*4,rowOne+bSpace*4);
+		slider.position(colThree-bSize+bSpace*2,rowThree+bSpace*4);
 
-		opacity.position(windowWidth/2-center-bSpace*2-bsize*2,320);
-		slider.position(windowWidth/2-center-bSpace*2-sliderSize,350);
+		psize.position(colOne,rowSix+bSpace*4);
 
-		psize.position(windowWidth/2-center-bSpace*2-bsize*2,380);
+	  one.position(colOne,rowSeven);
+	  two.position(colTwo,rowSeven);
+	  three.position(colThree,rowSeven);
+	  four.position(colOne,rowEight);
+	  five.position(colTwo,rowEight);
+	  six.position(colThree,rowEight);
 
-		//size button
-	  one.position(windowWidth/2-center-bSpace*2-bsize*2,415);
-	  two.position(windowWidth/2-center-bSpace-bsize,415);
-	  three.position(windowWidth/2-center-bSpace*2-bsize*2,445);
-	  four.position(windowWidth/2-center-bSpace-bsize,445);
-	  five.position(windowWidth/2-center-bSpace*2-bsize*2,475);
-	  six.position(windowWidth/2-center-bSpace-bsize,475);
-
-		upload.position(windowWidth/2-center-bSpace*2-bsize*2,510);
-		input.position(windowWidth/2-center-bSpace*2-sliderSize,550);
+		upload.position(colFour,rowFour+bSpace*4);
+		input.position(colFour,rowFive);
 		upload.show();
 		input.show();
 
-		gsize.position(windowWidth/2+center+bSpace*2+bsize/2,cHead);
-		gridOne.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize*3+bSpace*2);
-		gridTwo.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize*2+bSpace);
-		gridThree.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize);
+		gsize.position(colFour,rowOne+bSpace*4);
+		gridOne.position(colFive,rowTwo);
+		gridTwo.position(colFour,rowThree);
+		gridThree.position(colFour,rowTwo);
+
 		gsize.show();
 		gridOne.show();
 		gridTwo.show();
 		gridThree.show();
 
-		resetButton.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize*6);
-		resetButton.size(isize,isize);
-		printButton.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize*7+bSpace);
-		dangerButton.position(windowWidth/2+center+bSpace*4,canvasH+cHead-bsize*2);
+		resetButton.position(colFour,rowSix);
+	  printButton.position(colFive,rowSix);
+		dangerButton.position(colFour,rowEight);
 		printButton.show();
 	}
 }
@@ -238,171 +227,197 @@ function setup() {
 	stroke(230);
   grid();
 
+	title = createP('Woodblock Pixel Maker');
+	title.position(windowWidth/2-90,0);
+	title.style('font-size:20px');
+
 	website = createA('http://noahmatteucci.com/home.html','noahmatteucci.com');
-	website.position(windowWidth/2-45,40);
+	website.position(windowWidth/2-45,45);
+
+	var padding = 100;
+	var colOne = windowWidth/2-center-padding-bSize*2-bSpace*3;
+	var colTwo = windowWidth/2-center-padding-bSize-bSpace*2;
+	var colThree = windowWidth/2-center-padding-bSpace;
+
+	var colFour = windowWidth/2+center+padding/4+bSpace;
+	var colFive = windowWidth/2+center+padding/4+bSize+bSpace*2;
+
+	var rowOne = cHead;
+	var rowTwo = cHead+bSize+bSpace;
+	var rowThree = cHead+bSize*2+bSpace*2;
+	var rowFour = cHead+bSize*3+bSpace*3;
+	var rowFive = cHead+bSize*4+bSpace*4;
+	var rowSix = cHead+bSize*5+bSpace*5;
+	var rowSeven = cHead+bSize*6+bSpace*6;
+	var rowEight = cHead+bSize*7+bSpace*7;
+	var rowNine = cHead+bSize*8+bSpace*8;
+	var rowTen = cHead+bSize*9+bSpace*9;
+	var rowEleven = cHead+bSize*10+bSpace*10;
 
 	ink = createP('INK:');
-	ink.position(windowWidth/2-center-bSpace*2-bsize*2,cHead);
+	ink.position(colOne,rowOne+bSpace*4);
 
 	redB = createButton('R');
-  redB.position(windowWidth/2-center-bSpace*2-bsize*2,cHead+bsize);
-	redB.size(bsize,bsize);
+  redB.position(colOne,rowTwo);
+	redB.size(bSize,bSize);
 	redB.style('color:rgb(255,255,255)');
 	redB.style('background-color:rgb(204,41,60)');
+	redB.style('font-family',tFont);
+	redB.style('font-size',sFont);
 	redB.mousePressed(reds);
 
 	greenB = createButton('G');
-  greenB.position(windowWidth/2-center-bSpace*2-bsize*2,cHead+bsize*2+bSpace);
-	greenB.size(bsize,bsize);
+  greenB.position(colOne,rowThree);
+	greenB.size(bSize,bSize);
 	greenB.style('color:rgb(255,255,255)');
 	greenB.style('background-color:rgb(35,108,81)');
+	greenB.style('font-size',sFont);
 	greenB.mousePressed(greens);
 
 	blueB = createButton('B');
-  blueB.position(windowWidth/2-center-bSpace*2-bsize*2,cHead+bsize*3+bSpace*2);
-	blueB.size(bsize,bsize);
+  blueB.position(colOne,rowFour);
+	blueB.size(bSize,bSize);
 	blueB.style('color:rgb(255,255,255)');
 	blueB.style('background-color:rgb(26,64,160)');
+	blueB.style('font-size',sFont);
 	blueB.mousePressed(blues);
 
 	whiteB = createButton('W');
-  whiteB.position(windowWidth/2-center-bSpace*2-bsize*2,cHead+bsize*4+bSpace*3);
-	whiteB.size(bsize,bsize);
+  whiteB.position(colOne,rowFive);
+	whiteB.size(bSize,bSize);
 	whiteB.style('background-color:rgb(255,255,255)');
+	whiteB.style('font-size',sFont);
 	whiteB.mousePressed(whites);
 
 	cyanB = createButton('C');
-  cyanB.position(windowWidth/2-center-bsize-bSpace,cHead+bsize);
-	cyanB.size(bsize,bsize);
+  cyanB.position(colTwo,rowTwo);
+	cyanB.size(bSize,bSize);
 	cyanB.style('color:rgb(255,255,255)');
 	cyanB.style('background-color:rgb(1, 185, 255)');
+	cyanB.style('font-size',sFont);
 	cyanB.mousePressed(cyans);
 
 	magentaB = createButton('M');
-  magentaB.position(windowWidth/2-center-bsize-bSpace,cHead+bsize*2+bSpace);
-	magentaB.size(bsize,bsize);
+  magentaB.position(colTwo,rowThree);
+	magentaB.size(bSize,bSize);
 	magentaB.style('color:rgb(255,255,255)');
 	magentaB.style('background-color:rgb(237,0,140)');
+	magentaB.style('font-size',sFont);
 	magentaB.mousePressed(magentas);
 
 	yellowB = createButton('Y');
-  yellowB.position(windowWidth/2-center-bsize-bSpace,cHead+bsize*3+bSpace*2);
-	yellowB.size(bsize,bsize);
+  yellowB.position(colTwo,rowFour);
+	yellowB.size(bSize,bSize);
 	yellowB.style('color:rgb(255,255,255)');
 	yellowB.style('background-color:rgb(253,242,0)');
+	yellowB.style('font-size',sFont);
 	yellowB.mousePressed(yellows);
 
 	blackB = createButton('B');
-  blackB.position(windowWidth/2-center-bsize-bSpace,cHead+bsize*4+bSpace*3);
-	blackB.size(bsize,bsize);
+  blackB.position(colTwo,rowFive);
+	blackB.size(bSize,bSize);
 	blackB.style('color:rgb(255,255,255)');
 	blackB.style('background-color:rgb(0,0,0)');
+	blackB.style('font-size',sFont);
 	blackB.mousePressed(blacks);
 
 	opacity = createP('OPACITY:');
-	opacity.position(windowWidth/2-center-bSpace*2-bsize*2,320);
+	opacity.position(colThree+bSpace*4,rowOne+bSpace*4);
 	//transparency slicer
-	slider = createSlider(0,255,255,25);
-	slider.position(windowWidth/2-center-bSpace*2-sliderSize,350);
-	slider.style('width','80px')
+	slider = createSlider(1,255,255,25);
+	slider.position(colThree-bSize+bSpace*2,rowThree+bSpace*4);
+	slider.style('rotate',270);
+	slider.style('width','200px');
+	slider.style('height','60px');
+	slider.style('cursor:pointer');
 
 	psize = createP('PIXEL SIZE:');
-	psize.position(windowWidth/2-center-bSpace*2-bsize*2,380);
+	psize.position(colOne,rowSix+bSpace*4);
 
 	//size button
 	one = createButton('10px');
-  one.position(windowWidth/2-center-bSpace*2-bsize*2,415);
-	one.size(bsize,bsize/2);
+  one.position(colOne,rowSeven);
+	one.size(bSize,bSize);
+	one.style('font-size',psFont);
 	one.mousePressed(ones);
 	two = createButton('25px');
-	two.size(bsize,bsize/2);
-  two.position(windowWidth/2-center-bSpace-bsize,415);
+	two.size(bSize,bSize);
+  two.position(colTwo,rowSeven);
+	two.style('font-size',psFont);
 	two.mousePressed(twos);
 	three = createButton('50px');
-	three.size(bsize,bsize/2);
-  three.position(windowWidth/2-center-bSpace*2-bsize*2,445);
+	three.size(bSize,bSize);
+  three.position(colThree,rowSeven);
+	three.style('font-size',psFont);
 	three.mousePressed(threes);
 	four = createButton('100px');
-	four.size(bsize,bsize/2);
-  four.position(windowWidth/2-center-bSpace-bsize,445);
+	four.size(bSize,bSize);
+  four.position(colOne,rowEight);
+	four.style('font-size',psFont);
 	four.mousePressed(fours);
 	five = createButton('250px');
-	five.size(bsize,bsize/2);
-  five.position(windowWidth/2-center-bSpace*2-bsize*2,475);
+	five.size(bSize,bSize);
+  five.position(colTwo,rowEight);
+	five.style('font-size',psFont);
 	five.mousePressed(fives);
 	six = createButton('500px');
-	six.size(bsize,bsize/2);
-  six.position(windowWidth/2-center-bSpace-bsize,475);
+	six.size(bSize,bSize);
+  six.position(colThree,rowEight);
+	six.style('font-size',psFont);
 	six.mousePressed(sixes);
 
 	upload = createP('UPLOAD IMAGE:');
-	upload.position(windowWidth/2-center-bSpace*2-bsize*2,510);
+	upload.position(colFour,rowFour+bSpace*4);
 	//choose file to upload
 	input = createFileInput(handleFile);
-	input.position(windowWidth/2-center-bSpace*2-sliderSize,550);
+	input.position(colFour,rowFive);
 	input.size(82,20);
 
 	gsize = createP('GRID SIZE:');
-	gsize.position(windowWidth/2+center+bSpace*2+bsize/2,cHead);
+	gsize.position(colFour,rowOne+bSpace*4);
 	//grids
 	gridOne = createButton('14x10');
-  gridOne.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize*3+bSpace*2);
-	gridOne.size(bsize,bsize);
+  gridOne.position(colFive,rowTwo);
+	gridOne.size(bSize,bSize);
   gridOne.mousePressed(grids);
 
 	gridTwo = createButton('10x10');
-  gridTwo.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize*2+bSpace);
-	gridTwo.size(bsize,bsize);
+  gridTwo.position(colFour,rowThree);
+	gridTwo.size(bSize,bSize);
   gridTwo.mousePressed(gridsTwo);
 
 	gridThree = createButton('8x10');
-  gridThree.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize);
-	gridThree.size(bsize,bsize);
+  gridThree.position(colFour,rowTwo);
+	gridThree.size(bSize,bSize);
   gridThree.mousePressed(gridsThree);
 
 	//reset button
 	resetButton = createButton('RESET');
-  resetButton.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize*6);
-	resetButton.size(bsize,bsize);
+  resetButton.position(colFour,rowSix);
+	resetButton.size(bSize,bSize);
   resetButton.mousePressed(reset);
 
 	//print button
 	printButton = createButton('SAVE');
-  printButton.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize*7+bSpace);
-	printButton.size(bsize,bsize);
+  printButton.position(colFive,rowSix);
+	printButton.size(bSize,bSize);
   printButton.mousePressed(prints);
 
 	//dangerbutton
 	dangerButton = createButton('DO NOT PUSH');
-	dangerButton.position(windowWidth/2+center+bSpace*4,canvasH+cHead-bsize*2);
-	dangerButton.size(80,80);
-	dangerButton.style('font-size:14px');
+	dangerButton.position(colFour,rowEight);
+	dangerButton.size(bSize,bSize);
+	dangerButton.style('font-size:10px');
 	dangerButton.style('border-radius:50%');
 	dangerButton.style('background-color:#f44336');
 	dangerButton.mousePressed(chaos);
-/*
-	//video buttons
-	playButton = createButton('PLAY');
-  playButton.position(610,500);
-	playButton.mousePressed(play);
-	playButton.size(80,20);
-	pauseButton = createButton('PAUSE');
-  pauseButton.position(610,530);
-	pauseButton.mousePressed(pause);
-	pauseButton.size(80,20);
 
-	capture = createCapture(VIDEO);
-	capture.size(1000,500);
-	capture.hide();
-	print(capture.width);
-	print(capture.height);
-*/
-if (windowWidth<700){
-	windowResized();
-}
+	if (windowWidth<windowHeight){
+		windowResized();
+	}
 
 }
-
+//ink functions
 function reds(){
 	lastButton = 1;
 }
@@ -427,7 +442,7 @@ function yellows(){
 function blacks(){
 	lastButton = 4;
 }
-
+//size functions
 function ones(){
 	sizeButton = 5;
 }
@@ -452,9 +467,8 @@ function handleFile(file){
 		img = createImg(file.data, drawImg);
 	}
 }
-//upload image function
 function drawImg(){
-	pause();
+	//pause();
 	var val = 255;
 	if (sizeButton == 0){
 
@@ -618,6 +632,7 @@ function drawImg(){
 	stroke(230);
 	grid();
 }
+//grids
 function grids(){
 	canvasW = 710;
 	resizeCanvas(canvasW,canvasH);
@@ -662,6 +677,20 @@ function gridsThree(){
 	windowResized();
 	whichGrid = 1;
 }
+
+function reset(){
+	stroke(230);
+	fill(255);
+	rect(0,0,width,height);
+}
+function prints(){
+	//erase the grid
+	stroke(255);
+	grid();
+	saveCanvas('image.jpg');
+	stroke(230);
+  grid();
+}
 function chaos(){
 	dangerOn = true;
 
@@ -685,48 +714,11 @@ function chaos(){
 }
 
 function draw() {
-	//run webcam
-	//if (start == 1){
-		//run();
-	//}
-
 	//print(windowWidth);
 	if (dangerOn){
 		chaos();
 	}
 }
-
-function reset(){
-	stroke(230);
-	fill(255);
-	rect(0,0,width,height);
-}
-function prints(){
-	//erase the grid
-	stroke(255);
-	grid();
-	saveCanvas('image.jpg');
-	stroke(230);
-  grid();
-}
-/*
-function fast(){
-	speed = 1;
-}
-function slow(){
-	speed = 0;
-}
-*/
-function play(){
-	start = 1;
-	if(sizeButton == 0 || sizeButton == 1 || sizeButton == 2 || sizeButton == 3 || sizeButton == 4 || sizeButton == 5){
-		run();
-	}
-}
-function pause(){
-	start = 0;
-}
-
 
 //draw the grid
 function grid() {
@@ -1252,15 +1244,6 @@ function mouseDragged(){
 }
 
 /*
-//draw a dotted line
-function dots(){
-  //draw a dotted line
-  for (var x = 610; x < 690; x += 10){
-    stroke(0);
-    line(x, bstart+285, x + 3, bstart+285);
-    line(x, bstart+287, x + 3, bstart+287);
-  }
-}
 //button class
 function Button (x,y,w,h,r,g,b){
     this.x = x;
