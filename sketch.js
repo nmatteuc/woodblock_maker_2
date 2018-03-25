@@ -66,6 +66,7 @@ var gridOne;
 var gridTwo;
 var gridThree;
 var gridSize = 0;
+var whichGrid;
 
 //text
 var ink,opacity,psize,upload,gsize,website;
@@ -86,6 +87,8 @@ function windowResized(){
 
 	if (windowWidth < 700 || canvasW+200 > windowWidth){
 
+		//resizeCanvas(310,310);
+		//canvas.position((windoWidth/2)-(width/2));
 		var first = windowWidth/2-center;
 		var firstb = windowWidth/2-center+isize+bSpace;
 		var second = windowWidth/2-center/2+bSpace;
@@ -217,7 +220,7 @@ function windowResized(){
 		resetButton.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize*6);
 		resetButton.size(isize,isize);
 		printButton.position(windowWidth/2+center+bSpace*3+bsize/2,cHead+bsize*7+bSpace);
-		dangerButton.position(windowWidth/2+center+bSpace*3,canvasH+cHead-bsize*2);
+		dangerButton.position(windowWidth/2+center+bSpace*4,canvasH+cHead-bsize*2);
 		printButton.show();
 	}
 }
@@ -371,8 +374,8 @@ function setup() {
 
 	//dangerbutton
 	dangerButton = createButton('DO NOT PUSH');
-	dangerButton.position(windowWidth/2+center+bSpace*3,canvasH+cHead-bsize*2);
-	dangerButton.size(bsize*2,bsize*2);
+	dangerButton.position(windowWidth/2+center+bSpace*4,canvasH+cHead-bsize*2);
+	dangerButton.size(80,80);
 	dangerButton.style('font-size:14px');
 	dangerButton.style('border-radius:50%');
 	dangerButton.style('background-color:#f44336');
@@ -629,6 +632,7 @@ function grids(){
 	stroke(230);
 	grid();
 	windowResized();
+	whichGrid = 3;
 }
 function gridsTwo(){
 	canvasW = 510;
@@ -640,6 +644,7 @@ function gridsTwo(){
 	stroke(230);
 	grid();
 	windowResized();
+	whichGrid = 2;
 }
 function gridsThree(){
 	canvasW = 410;
@@ -655,6 +660,7 @@ function gridsThree(){
 	stroke(230);
 	grid();
 	windowResized();
+	whichGrid = 1;
 }
 function chaos(){
 	dangerOn = true;
@@ -732,6 +738,15 @@ function grid() {
 //mouse functions
 function mousePressed(){
 	val = slider.value();
+	//which grid am I using
+	if (whichGrid == 3){
+		skip = (canvasW-cs*2)/14;
+	}else if (whichGrid == 2){
+		skip = (canvasW-cs*2)/10;
+	}else if (whichGrid == 1){
+		skip = (canvasW-cs*2)/8;
+	}
+
 	//switching colors
 	if (sizeButton == 0){
       for (var x = cs; x < width-cs; x += skip){
@@ -985,6 +1000,13 @@ function mousePressed(){
 }
 function mouseDragged(){
 	val = slider.value();
+	if (whichGrid == 3){
+		skip = (canvasW-cs*2)/((canvasW-cs*2)/skip);
+	}else if (whichGrid == 2){
+		skip = (canvasW-cs*2)/((canvasW-cs*2)/skip);
+	}else if (whichGrid == 1){
+		skip = (canvasW-cs*2)/((canvasW-cs*2)/skip);
+	}
 	//switching colors
 	if (sizeButton == 0){
       for (var x = cs; x < width-cs; x += skip){
