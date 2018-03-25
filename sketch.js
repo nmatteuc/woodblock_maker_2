@@ -74,8 +74,8 @@ function preload(){
 function windowResized(){
 	var isize = 60;
 	if (windowWidth < windowHeight){// || canvasW+200 > windowWidth){
-		var first = windowWidth/windowWidth+10;
-		var firstb = windowWidth/windowWidth+isize+bSpace;
+		var first = windowWidth/windowWidth+bSpace;
+		var firstb = windowWidth/windowWidth+isize+bSpace*2;
 		var second = windowWidth/2-center/2+bSpace;
 		var secondb = windowWidth/2-center/2+isize+bSpace*2;
 		var third = windowWidth/2+bSpace*4;
