@@ -57,8 +57,15 @@ var bSpace = 5;	//space around ink buttons
 var ink,opacity,psize,upload,gsize,website,title;
 var tFont = 'Avenir';
 var sFont = '20px';
-var psFont = '14px';
+var psFont = '16px';
 
+//firebase database
+var database;
+var galleryButton;
+var storageRef,mountainRef,mountainImagesRef;
+//var initialInput;
+//var submitButton;
+var drawing = [];
 
 function preload(){
 	for (var i=0; i < 80; i++){
@@ -74,8 +81,8 @@ function preload(){
 function windowResized(){
 	var isize = 60;
 	if (windowWidth < windowHeight){// || canvasW+200 > windowWidth){
-		var first = windowWidth/windowWidth+bSpace;
-		var firstb = windowWidth/windowWidth+isize+bSpace*2;
+		var first = windowWidth/windowWidth+10;
+		var firstb = windowWidth/windowWidth+isize+bSpace;
 		var second = windowWidth/2-center/2+bSpace;
 		var secondb = windowWidth/2-center/2+isize+bSpace*2;
 		var third = windowWidth/2+bSpace*4;
@@ -145,6 +152,7 @@ function windowResized(){
 		resetButton.size(isize,isize);
 		printButton.position(fourth,rowC);
 		dangerButton.position(fourth,rowD);
+
 	}else{
 		var padding = 100;
 		var colOne = windowWidth/2-center-padding-bSize*2-bSpace*3;
@@ -324,7 +332,7 @@ function setup() {
 	opacity = createP('OPACITY:');
 	opacity.position(colThree+bSpace*4,rowOne+bSpace*4);
 	//transparency slicer
-	slider = createSlider(1,255,255,25);
+	slider = createSlider(0,255,255,17);
 	slider.position(colThree-bSize+bSpace*2,rowThree+bSpace*4);
 	slider.style('rotate',270);
 	slider.style('width','200px');
@@ -379,21 +387,25 @@ function setup() {
 	gridOne = createButton('14x10');
   gridOne.position(colFive,rowTwo);
 	gridOne.size(bSize,bSize);
+	gridOne.style('font-size',psFont);
   gridOne.mousePressed(grids);
 
 	gridTwo = createButton('10x10');
   gridTwo.position(colFour,rowThree);
 	gridTwo.size(bSize,bSize);
+	gridTwo.style('font-size',psFont);
   gridTwo.mousePressed(gridsTwo);
 
 	gridThree = createButton('8x10');
   gridThree.position(colFour,rowTwo);
 	gridThree.size(bSize,bSize);
+	gridThree.style('font-size',psFont);
   gridThree.mousePressed(gridsThree);
 
 	//reset button
 	resetButton = createButton('RESET');
   resetButton.position(colFour,rowSix);
+	resetButton.style('font-size',psFont);
 	resetButton.size(bSize,bSize);
   resetButton.mousePressed(reset);
 
@@ -401,6 +413,7 @@ function setup() {
 	printButton = createButton('SAVE');
   printButton.position(colFive,rowSix);
 	printButton.size(bSize,bSize);
+	printButton.style('font-size',psFont);
   printButton.mousePressed(prints);
 
 	//dangerbutton
@@ -417,6 +430,10 @@ function setup() {
 	}
 
 }
+
+function saveImage(){
+}
+
 //ink functions
 function reds(){
 	lastButton = 1;
@@ -1242,148 +1259,3 @@ function mouseDragged(){
 			}
 		}
 }
-
-/*
-//button class
-function Button (x,y,w,h,r,g,b){
-    this.x = x;
-    this.y = y;
-		this.w = w;
-		this.h = h;
-		this.r = r;
-		this.g = g;
-		this.b = b;
-
-		this.show = function(){
-			fill(this.r,this.g,this.b);
-			rect(this.x,this.y,this.w,this.h,10);
-		}
-
-		this.MouseIsOver = function(){
-			if(mouseX > this.x && mouseX < (this.x + this.w) && mouseY > this.y && mouseY < (this.y + this.h)){
-				return true;
-			}
-			return false;
-		}
-}
-//webcam run
-function run(){
-
-		noStroke();
-		fill(255);
-		rect(100,100,500,500);
-		frameRate(10);
-		//var val = slider.value();
-		//image(capture,100,100);
-
-		//loadPixels();
-
-		capture.loadPixels();
-		if(sizeButton == 0){
-		for (var x = 250; x < capture.width-250; x+=50){
-			for (var y = 0; y < capture.height; y+=50){
-				var index = (x + y * capture.width)*4;
-				var r = capture.pixels[index];
-				var g = capture.pixels[index+1];
-				var b = capture.pixels[index+2];
-				var a = capture.pixels[index+3];
-
-				var c = color(r,g,b,a);
-				var value = brightness(c);
-				var value2 = hue(c);
-
-				noStroke();
-				var pick = int(random(70,80));
-				tint(r,g,b);
-				image(sizeOne[pick],x-150,y+100);
-			}
-		}
-	}else if(sizeButton == 1){
-		for (var x = 250; x < capture.width-250; x+=100){
-			for (var y = 0; y < capture.height; y+=100){
-				var index = (x + y * capture.width)*4;
-				var r = capture.pixels[index];
-				var g = capture.pixels[index+1];
-				var b = capture.pixels[index+2];
-				var a = capture.pixels[index+3];
-
-				var c = color(r,g,b,a);
-				var value = brightness(c);
-				var value2 = hue(c);
-
-				noStroke();
-				var pick = int(random(70,80));
-				tint(r,g,b);
-				image(sizeTwo[pick],x-150,y+100);
-			}
-		}
-	}else if(sizeButton == 2){
-		for (var x = 250; x < capture.width-250; x+=250){
-			for (var y = 0; y < capture.height; y+=250){
-				var index = (x + y * capture.width)*4;
-				var r = capture.pixels[index];
-				var g = capture.pixels[index+1];
-				var b = capture.pixels[index+2];
-				var a = capture.pixels[index+3];
-
-				var c = color(r,g,b,a);
-				var value = brightness(c);
-				var value2 = hue(c);
-
-				noStroke();
-				var pick = int(random(70,80));
-				tint(r,g,b);
-				image(sizeFive[pick],x-150,y+100);
-			}
-		}
-	}else if(sizeButton == 3){
-		for (var x = 250; x < capture.width-250; x+=500){
-			for (var y = 0; y < capture.height; y+=500){
-				var index = (x + y * capture.width)*4;
-				var r = capture.pixels[index];
-				var g = capture.pixels[index+1];
-				var b = capture.pixels[index+2];
-				var a = capture.pixels[index+3];
-
-				var c = color(r,g,b,a);
-				var value = brightness(c);
-				var value2 = hue(c);
-
-				noStroke();
-				var pick = int(random(70,80));
-				tint(r,g,b);
-				image(sizeTen[pick],x-150,y+100);
-			}
-		}
-	}else if(sizeButton == 4){
-		frameRate(5);
-		for (var x = 250; x < capture.width-250; x+=25){
-			for (var y = 0; y < capture.height; y+=25){
-				var index = (x + y * capture.width)*4;
-				var r = capture.pixels[index];
-				var g = capture.pixels[index+1];
-				var b = capture.pixels[index+2];
-
-				var pick = int(random(70,80));
-				tint(r,g,b);
-				image(half[pick],x-150,y+100);
-			}
-		}
-	}else if(sizeButton == 5){
-		frameRate(5);
-		for (var x = 250; x < capture.width-250; x+=10){
-			for (var y = 0; y < capture.height; y+=10){
-				var index = (x + y * capture.width)*4;
-				var r = capture.pixels[index];
-				var g = capture.pixels[index+1];
-				var b = capture.pixels[index+2];
-
-				var pick = int(random(70,80));
-				tint(r,g,b);
-				image(quarter[pick],x-150,y+100);
-			}
-		}
-	}
-	//start = 0;
-}
-*/
